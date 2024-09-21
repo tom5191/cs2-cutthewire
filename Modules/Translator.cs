@@ -1,7 +1,7 @@
 using CounterStrikeSharp.API.Modules.Utils;
 using Microsoft.Extensions.Localization;
 
-namespace InstadefusePlugin.Modules;
+namespace CutTheWirePlugin.Modules;
 
 public class Translator
 {

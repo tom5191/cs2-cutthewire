@@ -4,33 +4,34 @@ using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Modules.Utils;
 using System.Numerics;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
-using InstadefusePlugin.Modules;
+using CutTheWirePlugin.Modules;
 
-namespace InstadefusePlugin;
+namespace CutTheWirePlugin;
 
 [MinimumApiVersion(220)]
-public class InstadefusePlugin : BasePlugin
+public class CutTheWirePlugin : BasePlugin
 {
-    private const string Version = "2.0.0";
+    private const string Version = "1.0.0";
     
-    public override string ModuleName => "Instadefuse Plugin";
+    public override string ModuleName => "Cut The Wire Plugin";
     public override string ModuleVersion => Version;
     public override string ModuleAuthor => "B3none";
     public override string ModuleDescription => "https://github.com/B3none/cs2-instadefuse";
 
-    public static readonly string LogPrefix = $"[Instadefuse {Version}] ";
+    public static readonly string LogPrefix = $"[Cut The Wire {Version}] ";
     public static string MessagePrefix = $"[{ChatColors.Green}Retakes{ChatColors.White}] ";
 
     private float _bombPlantedTime = float.NaN;
     private bool _bombTicking;
     private int _molotovThreat;
     private int _heThreat;
+    private int _bombWireColor;
 
     private List<int> _infernoThreat = new();
 
     private Translator _translator;
     
-    public InstadefusePlugin()
+    public CutTheWirePlugin()
     {
         _translator = new Translator(Localizer);
     }
@@ -41,7 +42,7 @@ public class InstadefusePlugin : BasePlugin
         
         Console.WriteLine($"{LogPrefix}Plugin loaded!");
         
-        MessagePrefix = _translator["instadefuse.prefix"];
+        MessagePrefix = _translator["cutthewire.prefix"];
     }
 
     [GameEventHandler]
@@ -175,6 +176,10 @@ public class InstadefusePlugin : BasePlugin
         _bombPlantedTime = Server.CurrentTime;
         _bombTicking = true;
 
+        Random rnd = new Random();
+        _bombWireColor = rnd.Next(1, 5);
+        Console.WriteLine($"{LogPrefix}bomb wire color set");
+
         return HookResult.Continue;
     }
 
@@ -227,7 +232,7 @@ public class InstadefusePlugin : BasePlugin
         if (_heThreat > 0 || _molotovThreat > 0 || _infernoThreat.Any())
         {
             Console.WriteLine($"{LogPrefix}Instant Defuse not possible because a grenade threat is active!");
-            Server.PrintToChatAll(MessagePrefix + _translator["instadefuse.not_possible"]);
+            Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.not_possible"]);
             return;
         }
 
@@ -245,7 +250,8 @@ public class InstadefusePlugin : BasePlugin
 
         if (!bombCanBeDefusedInTime)
         {
-            Server.PrintToChatAll(MessagePrefix + _translator["instadefuse.unsuccessful", defuser.PlayerName, $"{Math.Abs(timeLeftAfterDefuse):n3}"]);
+            Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.unsuccessful", defuser.PlayerName, $"{Math.Abs(timeLeftAfterDefuse):n3}"]);
+            
 
             Server.NextFrame(() =>
             {
@@ -276,7 +282,7 @@ public class InstadefusePlugin : BasePlugin
             
             plantedBomb.DefuseCountDown = 0;
 
-            Server.PrintToChatAll(MessagePrefix + _translator["instadefuse.successful", defuser.PlayerName, $"{Math.Abs(bombTimeUntilDetonation):n3}"]);
+            Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.successful", defuser.PlayerName, $"{Math.Abs(bombTimeUntilDetonation):n3}"]);
         });
     }
 

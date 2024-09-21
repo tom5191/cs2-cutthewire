@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|c:\\users\\hange\\documents\\github\\cs2-instadefuse\\cutthewireplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|solutionrelative:cutthewireplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|c:\\users\\hange\\documents\\github\\cs2-instadefuse\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|solutionrelative:readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|c:\\users\\hange\\documents\\github\\cs2-instadefuse\\modules\\translator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{742B7F63-FBF7-4D57-880A-BC8282751998}|CutTheWirePlugin.csproj|solutionrelative:modules\\translator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\README.md",
+              "RelativeDocumentMoniker": "README.md",
+              "ToolTip": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\README.md",
+              "RelativeToolTip": "README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2024-09-21T06:22:09.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Translator.cs",
+              "DocumentMoniker": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\Modules\\Translator.cs",
+              "RelativeDocumentMoniker": "Modules\\Translator.cs",
+              "ToolTip": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\Modules\\Translator.cs",
+              "RelativeToolTip": "Modules\\Translator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T06:20:37.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CutTheWirePlugin.cs",
+              "DocumentMoniker": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\CutTheWirePlugin.cs",
+              "RelativeDocumentMoniker": "CutTheWirePlugin.cs",
+              "ToolTip": "C:\\Users\\hange\\Documents\\GitHub\\cs2-instadefuse\\CutTheWirePlugin.cs",
+              "RelativeToolTip": "CutTheWirePlugin.cs",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAiwM0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T05:20:10.886Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
