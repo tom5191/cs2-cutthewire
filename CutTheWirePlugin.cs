@@ -2,6 +2,7 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Modules.Utils;
+using CounterStrikeSharp.API.Modules.Menu;
 using System.Numerics;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CutTheWirePlugin.Modules;
@@ -20,6 +21,8 @@ public class CutTheWirePlugin : BasePlugin
 
     public static readonly string LogPrefix = $"[Cut The Wire {Version}] ";
     public static string MessagePrefix = $"[{ChatColors.Green}Retakes{ChatColors.White}] ";
+    private static string[] WireOptions = ["Red", "Blue", "Green", "Yellow", "Random"];
+
 
     private float _bombPlantedTime = float.NaN;
     private bool _bombTicking;
@@ -176,9 +179,7 @@ public class CutTheWirePlugin : BasePlugin
         _bombPlantedTime = Server.CurrentTime;
         _bombTicking = true;
 
-        Random rnd = new Random();
-        _bombWireColor = rnd.Next(1, 5);
-        Console.WriteLine($"{LogPrefix}bomb wire color set");
+        setBombWireColor();
 
         return HookResult.Continue;
     }
@@ -192,15 +193,41 @@ public class CutTheWirePlugin : BasePlugin
 
         if (player != null && player.IsValid && player.PawnIsAlive)
         {
-            AttemptInstadefuse(player);
+            OpenWireCutDefuseMenu(player);
         }
 
         return HookResult.Continue;
     }
 
-    private void AttemptInstadefuse(CCSPlayerController defuser)
+    private static string setBombWireColor() {
+        Console.WriteLine($"{LogPrefix}Setting bomb wire color ...");
+
+        Random rnd = new Random();
+        var index = rnd.Next(1, 4);
+
+        _bombWireColor = WireOptions[index]; 
+
+        Console.WriteLine($"{LogPrefix}bomb wire color set");
+    }
+
+    private static void GetDefuseOptions(ChatMenu defuseMenu) {
+        for(var i = 0; i < WireOptions.length; i++ ) {
+            defuseMenu.AddMenuOption(WireOptions[i], AttemptToDefuse);
+        }
+    }
+
+    private void OpenWireCutDefuseMenu(CSSPlayerController defuser) {
+        Console.WriteLine($"{LogPrefix}Attempting to open menu...");
+
+        var defuseMenu = new ChatMenu("Cut The Wire");
+        ChatMenus.OpenMenu(defuser, defuseMenu);
+    }
+
+    private void AttemptToDefuse(CCSPlayerController defuser, ChatMenuOption option)
     {
         Console.WriteLine($"{LogPrefix}Attempting instadefuse...");
+        Console.WriteLine($"{LogPrefix} PULL THE LEVER KRONK...");
+
 
         if (!_bombTicking)
         {
@@ -218,12 +245,6 @@ public class CutTheWirePlugin : BasePlugin
         if (plantedBomb.CannotBeDefused)
         {
             Console.WriteLine($"{LogPrefix}Planted bomb can not be defused!");
-            return;
-        }
-
-        if (TeamHasAlivePlayers(CsTeam.Terrorist))
-        {
-            Console.WriteLine($"{LogPrefix}Terrorists are still alive");
             return;
         }
         
@@ -244,46 +265,28 @@ public class CutTheWirePlugin : BasePlugin
             defuseLength = defuser.PawnHasDefuser ? 5.0f : 10.0f;
         }
         Console.WriteLine($"{LogPrefix}DefuseLength: {defuseLength}");
-
-        var timeLeftAfterDefuse = bombTimeUntilDetonation - defuseLength;
-        var bombCanBeDefusedInTime = timeLeftAfterDefuse >= 0.0f;
-
-        if (!bombCanBeDefusedInTime)
-        {
-            Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.unsuccessful", defuser.PlayerName, $"{Math.Abs(timeLeftAfterDefuse):n3}"]);
-            
-
-            Server.NextFrame(() =>
-            {
-                plantedBomb = FindPlantedBomb();
-                
-                if (plantedBomb == null)
-                {
-                    Console.WriteLine($"{LogPrefix}Planted bomb is null!");
-                    return;
-                }
-                
-                plantedBomb.C4Blow = 1.0f;
-            });
-
-            return;
+        
+        if(option == _bombWireColor) {
+            Console.WriteLine($"{LogPrefix} Selected wire options matches set wire color");
+        } else {
+            Console.WriteLine($"{LogPrefix} WRONG LEVER");
         }
 
-        Server.NextFrame(() =>
-        {
-            // We get the planted bomb again as it was sometimes crashing.
-            plantedBomb = FindPlantedBomb();
+        // Server.NextFrame(() =>
+        // {
+        //     // We get the planted bomb again as it was sometimes crashing.
+        //     plantedBomb = FindPlantedBomb();
             
-            if (plantedBomb == null)
-            {
-                Console.WriteLine($"{LogPrefix}Planted bomb is null!");
-                return;
-            }
+        //     if (plantedBomb == null)
+        //     {
+        //         Console.WriteLine($"{LogPrefix}Planted bomb is null!");
+        //         return;
+        //     }
             
-            plantedBomb.DefuseCountDown = 0;
+        //     plantedBomb.DefuseCountDown = 0;
 
-            Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.successful", defuser.PlayerName, $"{Math.Abs(bombTimeUntilDetonation):n3}"]);
-        });
+        //     Server.PrintToChatAll(MessagePrefix + _translator["cutthewire.successful", defuser.PlayerName, $"{Math.Abs(bombTimeUntilDetonation):n3}"]);
+        // });
     }
 
     private static bool TeamHasAlivePlayers(CsTeam team)
